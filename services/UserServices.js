@@ -10,11 +10,11 @@ export class AuthUserService {
         this.repository = repository;
     }
 
-    register(name, email, password, number) {
+    register(name, email, password, number, role) {
         const userExists = this.repository.findByEmail(email)
-        if(userExists) throw new Error("Email já existente")
+        if(userExists) throw new Error("E-mail já existente")
         
-        const newUser = new User({name, email, password, number})
+        const newUser = new User({name, email, password, number, role})
         newUser.password = bcrypt.hashSync(newUser.password, 10)
 
         this.repository.save(newUser)

@@ -4,9 +4,9 @@ export class UserController {
     }
 
     register(req, res) {
-        const {name, email, password, number} = req.body
+        const {name, email, password, number, role} = req.body
         try {
-            const user = this.service.register(name, email, password, number)
+            const user = this.service.register(name, email, password, number, role)
             return {status: 201, body: user}
         }
         catch(error) {
