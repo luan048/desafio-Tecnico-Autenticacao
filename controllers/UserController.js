@@ -9,10 +9,10 @@ export class UserController {
     }
 
     register(req, res) {
-        const {name, email, password, number, role} = req.body
+        const {name, email, password, tel, role} = req.body
 
         try {
-            const user = this.service.register(name, email, password, number, role)
+            const user = this.service.register(name, email, password, tel, role)
             return {status: 201, body: user}
         }
         catch(error) {

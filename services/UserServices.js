@@ -14,11 +14,11 @@ export class AuthUserService {
         return this.repository.findAll();
     }
 
-    register(name, email, password, number, role) {
+    register(name, email, password, tel, role) {
         const userExists = this.repository.findByEmail(email)
         if(userExists) throw new Error("E-mail já existente")
         
-        const newUser = new User({name, email, password, number, role})
+        const newUser = new User({name, email, password, tel, role})
         newUser.password = bcrypt.hashSync(newUser.password, 10)
 
         this.repository.save(newUser)
@@ -33,7 +33,7 @@ export class AuthUserService {
         const samePassword = bcrypt.compareSync(password, user.password)
         if(!samePassword) throw new Error("Usuário e/ou senha inválidos")
 
-        const token = jwt.sign({id: user.id, email: user.email}, process.env.SECRET_KEY, {expiresIn: "1d"})
+        const token = jwt.sign({id: user.id, email: user.email}, process.env.SECRET_KEY, {expiresIn: "30m"})
         return {token, user: {...user, password: undefined}}
     }
 
