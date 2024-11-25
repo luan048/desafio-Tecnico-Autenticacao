@@ -1,9 +1,9 @@
-import bcrypt from 'bcrypt'
-import {User} from '../models/UserModel.js'
-import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt';
+import {User} from '../models/UserModel.js';
+import jwt from 'jsonwebtoken';
 
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from 'dotenv';
+dotenv.config();
 
 export class AuthUserService {
     constructor(repository) {

@@ -24,7 +24,7 @@ export class UserController {
         const {email, password} = req.body
 
         try {
-            const user = this.register.login(email, password)
+            const user = this.service.login(email, password)
             return {status: 201, body: user}
         }
         catch(error) {

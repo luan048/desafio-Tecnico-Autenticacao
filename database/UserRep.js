@@ -12,6 +12,6 @@ export class UserRepository {
     }
 
     save(user) {
-        this.users.push(user)
+        this.users.push(user);
     }
 }

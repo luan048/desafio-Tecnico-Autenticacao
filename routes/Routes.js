@@ -1,16 +1,16 @@
 import { Router } from "express";
 
 // Para User
-import {UserRepository} from '../database/UserRep.js'
-import {AuthUserService} from '../services/UserServices.js'
-import {UserController} from '../controllers/UserController.js'
+import {UserRepository} from '../database/UserRep.js';
+import {AuthUserService} from '../services/UserServices.js';
+import {UserController} from '../controllers/UserController.js';
 
 const userRepository = new UserRepository();
 const userAuthService = new AuthUserService(userRepository);
 const userController = new UserController(userAuthService);
 
-// Para Admin
-import {VerifyRole} from '../middleware/AuthRole.js'
+// Verificação do Role do User
+import {VerifyRole} from '../middleware/AuthRole.js';
 
 const routers = Router()
 
@@ -24,9 +24,10 @@ routers.post('/api/login', (req, res) => {
     res.status(status).json(body)
 })
 
+// Rota para listar os usuários somente para o ADMIN
 routers.get('/api/listarUsers', VerifyRole.preHandler, (req, res) => {
     const {status, body} = userController.index(req)
     res.status(status).json(body)
 })
 
-export {routers}
+export {routers, userAuthService};
