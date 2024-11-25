@@ -10,6 +10,10 @@ export class AuthUserService {
         this.repository = repository;
     }
 
+    findAllUsers() {
+        return this.repository.findAll();
+    }
+
     register(name, email, password, number, role) {
         const userExists = this.repository.findByEmail(email)
         if(userExists) throw new Error("E-mail já existente")

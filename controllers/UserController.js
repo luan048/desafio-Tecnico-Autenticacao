@@ -3,8 +3,14 @@ export class UserController {
         this.service = service;
     }
 
+    index(req) {
+        const users = this.service.findAllUsers()
+        return {status: 200, body: {users}}
+    }
+
     register(req, res) {
         const {name, email, password, number, role} = req.body
+
         try {
             const user = this.service.register(name, email, password, number, role)
             return {status: 201, body: user}
