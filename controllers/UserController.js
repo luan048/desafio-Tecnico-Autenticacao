@@ -13,7 +13,15 @@ export class UserController {
 
         try {
             const user = this.service.register(name, email, password, tel, role)
-            return {status: 201, body: user}
+
+            // Após criar retorna o status e o output
+            return {
+                status: 201,
+                body: {
+                    id: user.id,
+                    data_criacao: user.data_criacao,
+                }
+            }
         }
         catch(error) {
             return {status: 400, body: {message: error.message}}
@@ -24,8 +32,17 @@ export class UserController {
         const {email, password} = req.body
 
         try {
-            const user = this.service.login(email, password)
-            return {status: 201, body: user}
+            const {token, user} = this.service.login(email, password)
+
+            return {
+                status: 201, 
+                body: {
+                    id: user.id,
+                    data_criacao: user.data_criacao,
+                    data_atualizacao: user.data_atualizacao,
+                    token,
+                }
+            }
         }
         catch(error) {
             return {status: 400, body: {message: error.message}}
